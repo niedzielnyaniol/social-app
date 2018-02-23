@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Register!</h1>
+
+                {{ form_start(form) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.plainPassword.first, {
+                    'label': 'Password'
+                }) }}
+                {{ form_row(form.plainPassword.second, {
+                    'label': 'Repeat password'
+                }) }}
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.lastName) }}
+                <button type="submit" class="btn btn-default">Sign up</button>
+                {{ form_end(form) }}
+                <p class="message">Have account? <a href="{{ path('security_login') }}">Log in</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

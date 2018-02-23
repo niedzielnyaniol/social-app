@@ -1,0 +1,6 @@
+AppBundle\Entity\User:
+    admin:
+        email: mac
+        plainPassword: 123
+        roles: ['ROLE_ADMIN']
+        avatarUri: <imageUrl(100, 100, 'abstract')>
