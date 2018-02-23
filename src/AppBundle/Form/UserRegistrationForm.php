@@ -4,7 +4,9 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,10 +18,19 @@ class UserRegistrationForm extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
+            ->add('gender', ChoiceType::class, [
+                'choices' => [
+                    'male' => 'male',
+                    'female' => 'female'
+                ]
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class
             ])->add('firstName')
-            ->add('lastName');
+            ->add('lastName')
+            ->add('avatarUri', FileType::class, [
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

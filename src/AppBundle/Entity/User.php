@@ -31,6 +31,12 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string")
+     * @Assert\Choice({"male", "female"})
+     */
+    private $gender;
+
+    /**
      * The encoded password
      *
      * @ORM\Column(type="string")
@@ -61,7 +67,8 @@ class User implements UserInterface
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string")
+     * @Assert\File(mimeTypes={ "image/jpg", "image/jpeg", "image/png" })
      */
     private $avatarUri;
 
@@ -169,5 +176,21 @@ class User implements UserInterface
     public function getFullName()
     {
         return trim($this->getFirstName().' '.$this->getLastName());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param mixed $gender
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
     }
 }
