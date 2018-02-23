@@ -39,18 +39,19 @@ class UserController extends Controller
 
             if ($file) {
                 $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+                $folderName = 'uploads/avatars/';
+
+                $file->move(
+                    $this->getParameter('avatars_dir'),
+                    $fileName
+                );
             } else {
                 $gender = $user->getGender();
                 $fileName = 'default-'.$gender.'.jpg';
-                $file = new File($this->getParameter('avatars_dir').'/'.$fileName);
+                $folderName = 'images/';
             }
 
-            $file->move(
-                $this->getParameter('avatars_dir'),
-                $fileName
-            );
-
-            $user->setAvatarUri($fileName);
+            $user->setAvatarUri($folderName.$fileName);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -77,6 +78,18 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {
+        return $this->render('user/show.html.twig', array(
+            'user' => $user
+        ));
+    }
+
+    /**
+     * @Route("/account", name="user_account")
+     */
+    public function accountAction()
+    {
+        $user = $this->getUser();
+
         return $this->render('user/show.html.twig', array(
             'user' => $user
         ));

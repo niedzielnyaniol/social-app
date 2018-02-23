@@ -9,6 +9,7 @@ parameters:
     locale: en
     cache_type: file_system
     avatars_dir: '%kernel.root_dir%/../web/uploads/avatars'
+    images_dir: '%kernel.root_dir%/../web/images'
 
 framework:
     #esi:             ~
