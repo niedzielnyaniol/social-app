@@ -17,3 +17,5 @@
 /web/uploads/
 web/static/js/*.js
 web/index.html
+web/tab.html
+.idea/

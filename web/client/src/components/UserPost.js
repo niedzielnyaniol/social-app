@@ -11,7 +11,7 @@ const UserPost = ({ user, post }) => (
     <Feed.Label image={user.avatar} />
     <Feed.Content>
       <Feed.Summary>
-        <Link to={`/account/${user._id}`} >{user.name}</Link> posted on his page
+        <a href="/users/1" >{user.name}</a> posted on his page
         {/* <a click>{user.name}</a> posted on his page */}
         <Feed.Date>{post.date} days ago</Feed.Date>
       </Feed.Summary>
