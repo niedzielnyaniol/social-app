@@ -10,6 +10,7 @@ parameters:
     cache_type: file_system
     avatars_dir: '%kernel.root_dir%/../web/uploads/avatars'
     images_dir: '%kernel.root_dir%/../web/images'
+    build_dir: '%kernel.root_dir%\..\web\client\build'
 
 framework:
     #esi:             ~

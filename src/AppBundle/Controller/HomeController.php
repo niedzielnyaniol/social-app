@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Form\LoginForm;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class HomeController extends Controller
 {
@@ -13,6 +13,9 @@ class HomeController extends Controller
      */
     public function homeAction()
     {    
-        return $this->render('home/homepage.html.twig');
+//        return $this->render('home/homepage.html.twig');
+        $stream = $this->getParameter('build_dir').'\index.html';
+
+        return new BinaryFileResponse($stream);
     }
 }
