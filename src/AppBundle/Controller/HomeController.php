@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function homeAction()
     {    
 //        return $this->render('home/homepage.html.twig');
-        $stream = $this->getParameter('build_dir').'\index.html';
+        $stream = $this->getParameter('web_dir').'\index.html';
 
         return new BinaryFileResponse($stream);
     }

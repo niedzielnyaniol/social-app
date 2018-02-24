@@ -15,3 +15,5 @@
 /vendor/
 /web/bundles/
 /web/uploads/
+web/static/js/*.js
+web/index.html
