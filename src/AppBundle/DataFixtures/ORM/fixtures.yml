@@ -3,4 +3,7 @@ AppBundle\Entity\User:
         email: mac
         plainPassword: 123
         roles: ['ROLE_ADMIN']
-        avatarUri: <imageUrl(100, 100, 'abstract')>
+        gender: male
+        firstName: mac
+        lastName: kac
+        avatarUri: images/default-male.jpg

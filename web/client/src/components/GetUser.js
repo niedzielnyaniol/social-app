@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-
-import { requestAuth } from '../modules/user/actions';
+import { requestGetUser } from '../modules/user/actions';
 
 export default function getUser(Component) {
   class AuthenticatedComponent extends React.Component {
     componentWillMount() {
-      this.props.requestAuth(() => {});
+      this.props.requestGetUser({
+        email: 'mac',
+      });
     }
 
     render() {
@@ -30,7 +31,7 @@ export default function getUser(Component) {
 
   function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-      requestAuth,
+      requestGetUser,
     }, dispatch);
   }
 

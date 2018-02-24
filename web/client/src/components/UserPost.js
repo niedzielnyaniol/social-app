@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { Feed, Icon } from 'semantic-ui-react';
 

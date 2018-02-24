@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class HomeController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
     public function homeAction()
-    {    
-//        return $this->render('home/homepage.html.twig');
-        $stream = $this->getParameter('web_dir').'\tab.html';
+    {
+        if($this->get('security.authorization_checker')->isGranted('ROLE_USER')){
+            $stream = $this->getParameter('web_dir').'\tab.html';
 
-        return new BinaryFileResponse($stream);
+            return new BinaryFileResponse($stream);
+        }
+
+        return $this->render('home/homepage.html.twig');
     }
 }

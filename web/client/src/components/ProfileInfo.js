@@ -6,7 +6,7 @@ import UserShape from '../shapes/user';
 
 const ProfileInfo = ({ user }) => (
   <Card>
-    <Image src={user.avatar} />
+    <Image src={user.avatarUri} />
     <Card.Content>
       <Card.Header>
         {user.name}

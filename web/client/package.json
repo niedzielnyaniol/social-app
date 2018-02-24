@@ -11,6 +11,7 @@
     "react-scripts": "1.0.17"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "build": "^0.1.4",
     "history": "^4.7.2",
     "lodash": "^4.17.4",
@@ -35,7 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "copy": "copy build/static/js/*js ../static/js; copy build/index.html ../index.html",
+    "copy": "copy build/static/js/*js ../static/js; copy build/index.html ../tab.html",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src",
