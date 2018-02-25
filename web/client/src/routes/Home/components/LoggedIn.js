@@ -62,10 +62,11 @@ class LoggedIn extends React.Component {
       axios.post('http://localhost:8000/api/createPost', data, {
       }).then((dataa) => {
         const posts = cloneDeep(this.state.posts);
-        posts.unshift(dataa.data.post);
+        posts.push(dataa.data.post);
 
         this.setState({
-          posts: cloneDeep(posts),
+          posts: posts
+            .sort((b, a) => new Date(a.createdAt.date) - new Date(b.createdAt.date)),
           postData: '',
         });
       });

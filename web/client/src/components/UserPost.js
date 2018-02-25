@@ -18,8 +18,7 @@ class UserPost extends React.Component {
     this.state = {
       active: false,
       commentData: '',
-      comments: this.props.post.comments
-        .sort((a, b) => new Date(a.createdAt.date) - new Date(b.createdAt.date)),
+      comments: [],
     };
   }
 
@@ -69,7 +68,7 @@ class UserPost extends React.Component {
           <Feed.Meta>
             <Feed.Like>
               <Icon name="like" />
-              {this.props.post.likes} Likes
+              Like ({this.props.post.likes})
             </Feed.Like>
           </Feed.Meta>
         </Feed.Content>
@@ -78,9 +77,24 @@ class UserPost extends React.Component {
         <Accordion>
           <Accordion.Title active={this.state.active} onClick={() => { this.handleClick(); }}>
             <Icon name="dropdown" />
-            Comments ({this.state.comments.length})
+            Comments ({this.props.post.comments.length + this.state.comments.length})
           </Accordion.Title>
           <Accordion.Content active={this.state.active}>
+            {
+              this.props.post.comments.map((el, key) => (
+                // eslint-disable-next-line
+                <Comment key={key}>
+                  <Comment.Avatar src={el.author.avatarUri} />
+                  <Comment.Content>
+                    <Comment.Author as="a">{el.author.name} {el.author.surname}</Comment.Author>
+                    <Comment.Metadata>
+                      <div>{moment(el.createdAt.date).calendar()}</div>
+                    </Comment.Metadata>
+                    <Comment.Text>{el.content}</Comment.Text>
+                  </Comment.Content>
+                </Comment>
+              ))
+            }
             {
               this.state.comments.map((el, key) => (
                 // eslint-disable-next-line

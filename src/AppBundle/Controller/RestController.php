@@ -78,7 +78,7 @@ class RestController extends Controller
                     'content' => $post->getContent(),
                     'author' => $post->getAuthor()->getRest(),
                     'createdAt' => $post->getCreatedAt(),
-                    'comments' => $comments
+                    'comments' => $comments,
                 ]);
             }
         }
