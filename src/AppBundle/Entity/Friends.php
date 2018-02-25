@@ -12,7 +12,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\FriendRepository")
  * @ORM\Table(name="friends")
  */
 class Friends
@@ -31,15 +31,13 @@ class Friends
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="requestsSend")
-     * @ORM\JoinColumn(name="user_send_id")
      */
-    private $userWhoSend;
+    private $user1;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="invitations")
-     * @ORM\JoinColumn(name="user_recipient_id")
      */
-    private $requestRecipient;
+    private $user2;
 
     /**
      * @return mixed
@@ -76,32 +74,32 @@ class Friends
     /**
      * @return mixed
      */
-    public function getUserWhoSend()
+    public function getUser1()
     {
-        return $this->userWhoSend;
+        return $this->user1;
     }
 
     /**
-     * @param mixed $userWhoSend
+     * @param mixed $user1
      */
-    public function setUserWhoSend($userWhoSend)
+    public function setUser1($user1)
     {
-        $this->userWhoSend = $userWhoSend;
+        $this->user1 = $user1;
     }
 
     /**
      * @return mixed
      */
-    public function getRequestRecipient()
+    public function getUser2()
     {
-        return $this->requestRecipient;
+        return $this->user2;
     }
 
     /**
-     * @param mixed $requestRecipient
+     * @param mixed $user2
      */
-    public function setRequestRecipient($requestRecipient)
+    public function setUser2($user2)
     {
-        $this->requestRecipient = $requestRecipient;
+        $this->user2 = $user2;
     }
 }

@@ -34,6 +34,15 @@
                     </tr>
                     </tbody>
                 </table>
+                {% if areFriends %}
+                    Friends!
+                {% else %}
+                    {% if acceptBtn %}
+                        <a href="{{ path('accept_invite', {'id': user.id}) }}">User has invited you, accept</a>
+                    {% elseif inviteBtn %}
+                        <a href="{{ path('invite_user', {'id': user.id}) }}">Invite</a>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

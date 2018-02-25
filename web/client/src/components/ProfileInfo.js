@@ -16,7 +16,7 @@ const ProfileInfo = ({ user }) => (
       </Card.Header>
       <Card.Meta>
         <span className="date">
-          Joined in {moment(user.joined).year()}
+          Joined in {user.accountCreatedAt && moment(user.accountCreatedAt.date).year()}
         </span>
       </Card.Meta>
       {

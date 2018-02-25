@@ -58,12 +58,12 @@ class Post
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Friends", mappedBy="requestRecipient")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Friends", mappedBy="user2")
      */
     private $invitations;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Friends", mappedBy="userWhoSend")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Friends", mappedBy="user1")
      */
     private $requestsSend;
 

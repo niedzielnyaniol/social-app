@@ -78,8 +78,26 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {
+        $em = $this->getDoctrine();
+        $friendsReq1 = $em->getRepository('AppBundle:FriendsRequest')->findOneBy([
+            'userSend' => $this->getUser()->getId(),
+            'userRecipient' => $user->getId(),
+        ]);
+        $friendsReq2 = $em->getRepository('AppBundle:FriendsRequest')->findOneBy([
+            'userRecipient' => $this->getUser()->getId(),
+            'userSend' => $user->getId(),
+        ]);
+
+        $areFriends = $em->getRepository('AppBundle:Friends')->areFriends(
+            $this->getUser(),
+            $user
+        );
+
         return $this->render('user/show.html.twig', array(
-            'user' => $user
+            'user' => $user,
+            'inviteBtn' => !isset($friendsReq1),
+            'acceptBtn' => isset($friendsReq2),
+            'areFriends' => $areFriends,
         ));
     }
 

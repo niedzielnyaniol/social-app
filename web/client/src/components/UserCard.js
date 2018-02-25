@@ -32,7 +32,7 @@ const UserCard = ({
 }) => (
   <Container>
     <AvatarWrapper>
-      <AvatarImg src={user.avatar} alt="avatar" />
+      <AvatarImg src={user.avatarUri} alt="avatar" />
     </AvatarWrapper>
     <TextWrapper>
       <Text>{user.name}</Text>

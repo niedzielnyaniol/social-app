@@ -62,8 +62,13 @@ class RestController extends Controller
         $retUsers = array();
         $users = $em->getRepository('AppBundle:User')->findAll();
 
-        for ($i = 0; $i < 5; $i++) {
-            array_push($retUsers, $users[$i]->getRest());
+        for ($i = 0; count($retUsers) < 3; $i++) {
+            if (!$em->getRepository('AppBundle:Friends')->areFriends($users[$i], $user)
+                && $users[$i]->getId() !== $user->getId()
+                && !$em->getRepository('AppBundle:FriendsRequest')->areInvited($users[$i], $user)
+            ) {
+                array_push($retUsers, $users[$i]->getRest());
+            }
         }
 
         return new JsonResponse([

@@ -10,11 +10,11 @@ import SearchInput from '../SearchInput';
 import UserShape from '../../shapes/user';
 import HistoryShape from '../../shapes/history';
 
-const loggedIn = (user, requestLogout, history) => (
+const loggedIn = (user) => (
   <Menu.Menu position="right">
     <Menu.Item
       name="user"
-      onClick={() => history.push('/profile')}
+      onClick={() => { window.location.href = '/account'; }}
       style={{
         paddingTop: 0,
         paddingBottom: 0,
@@ -23,7 +23,7 @@ const loggedIn = (user, requestLogout, history) => (
       <UserCard user={user} />
     </Menu.Item>
 
-    <Menu.Item name="logout" onClick={() => { requestLogout(); history.push('/'); }}>
+    <Menu.Item name="logout" onClick={() => { window.location.href = '/logout'; }}>
       <b>Logout</b>
     </Menu.Item>
   </Menu.Menu>

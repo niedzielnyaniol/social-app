@@ -10,8 +10,7 @@ const UserPost = ({ user, post }) => (
     <Feed.Label image={user.avatar} />
     <Feed.Content>
       <Feed.Summary>
-        <a href="/users/1" >{user.name}</a> posted on his page
-        {/* <a click>{user.name}</a> posted on his page */}
+        <a href={`/users/${user.id}`}>{user.name}</a> posted on his page
         <Feed.Date>{post.date} days ago</Feed.Date>
       </Feed.Summary>
       <Feed.Extra text>
