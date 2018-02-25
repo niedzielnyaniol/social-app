@@ -72,6 +72,48 @@ class User implements UserInterface
      */
     private $avatarUri;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Post", mappedBy="author")
+     */
+    private $posts;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $accountCreatedAt;
+
+    /**
+     * @return mixed
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param mixed $posts
+     */
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccountCreatedAt()
+    {
+        return $this->accountCreatedAt;
+    }
+
+    /**
+     * @param mixed $accountCreatedAt
+     */
+    public function setAccountCreatedAt($accountCreatedAt)
+    {
+        $this->accountCreatedAt = $accountCreatedAt;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -192,5 +234,16 @@ class User implements UserInterface
     public function setGender($gender)
     {
         $this->gender = $gender;
+    }
+
+    public function getRest() {
+        return array(
+            'id' => $this->id,
+            'name' => $this->firstName,
+            'surname' => $this->lastName,
+            'accountCreatedAt' => $this->accountCreatedAt,
+            'email' => $this->email,
+            'avatarUri' => $this->avatarUri,
+        );
     }
 }

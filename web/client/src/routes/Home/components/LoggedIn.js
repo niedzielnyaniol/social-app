@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import { Grid, Image, Rail, Segment, Sticky } from 'semantic-ui-react';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
@@ -22,59 +23,37 @@ const StyledTextArea = styled(TextArea)`
 
 const Placeholder = () => <Image src="/assets/img/logo.png" />;
 
-const data = [
-  {
-    user: {
-      name: 'John Doe',
-      avatar: <Placeholder />,
-    },
-    post: {
-      likes: 3,
-      text: 'You are using the default filter for the users service. For more information about event filters see https://docs.feathersjs.com/api/events.html#event-filtering',
-      date: 1,
-    },
-  },
-  {
-    user: {
-      name: 'Mr Noone',
-      avatar: <Placeholder />,
-    },
-    post: {
-      likes: 21,
-      text: 'In Informatics, dummy data is benign information that does not contain any useful data, but serves to reserve space where real data is nominally present.',
-      date: 1,
-    },
-  },
-  {
-    user: {
-      name: 'Piotr Nowak',
-      avatar: <Placeholder />,
-    },
-    post: {
-      likes: 15,
-      text: 'A free test data generator and API mocking tool - Mockaroo lets you create custom CSV, JSON, SQL, and Excel datasets to test and demo your software.',
-      date: 2,
-    },
-  },
-  {
-    user: {
-      name: 'Aleksander Wójcik',
-      avatar: <Placeholder />,
-    },
-    post: {
-      likes: 15,
-      text: 'WooCommerce Dummy Data. Right after installing WooCommerce you may find you have an empty store. There are no products, orders, reviews, and more by default. We\'ve done that so you can get started right away creating your own products and setting up WooCommerce exactly for the needs of your store.',
-      date: 3,
-    },
-  },
-];
-
 class LoggedIn extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      postData: '',
+    };
 
     this.handleContextRef = this.handleContextRef.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+  }
+
+  onFormSubmit = () => {
+    const data = {
+      userId: this.props.user.id,
+      content: this.state.postData,
+    };
+
+    axios.post('http://localhost:8000/api/createPost', data, {
+    }).then((data) => {
+      console.log(data);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  onInputChange(data) {
+    this.setState({ postData: data.value });
+  }
+
+  clearPost = () => {
+    this.setState({ postData: '' });
   }
 
   handleContextRef(contextRef) {
@@ -112,21 +91,21 @@ class LoggedIn extends React.Component {
               </Sticky>
             </Rail>
             <div>
-              <Form>
-                <StyledTextArea placeholder="What's up?" />
+              <Form onSubmit={this.onFormSubmit}>
+                <StyledTextArea value={this.state.postData} placeholder="What's up?" onInput={(e, d) => this.onInputChange(d)} />
                 <Button.Group attached="bottom">
-                  <Button color="blue">Post</Button>
+                  <Button onClick={this.onFormSubmit} color="blue">Post</Button>
                   <Button.Or text="or" />
-                  <Button>Cancel</Button>
+                  <Button onClick={this.clearPost}>Cancel</Button>
                 </Button.Group>
               </Form>
               <Segment style={{ height: 2000 }}>
                 <Feed>
-                  {
+                  {/* {
                     data.map((el, key) => (
                       <UserPost user={el.user} post={el.post} key={key} /> // eslint-disable-line
                     ))
-                  }
+                  } */}
                 </Feed>
               </Segment>
             </div>

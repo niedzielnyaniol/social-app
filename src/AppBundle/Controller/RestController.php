@@ -18,13 +18,7 @@ class RestController extends Controller
         $user = $this->getUser();
         $response = new JsonResponse();
 
-        $response->setData(array(
-            'id' => $user->getId(),
-            'name' => $user->getFirstName(),
-            'surname' => $user->getLastName(),
-            'email' => $user->getEmail(),
-            'avatarUri' => $user->getAvatarUri(),
-        ));
+        $response->setData($user->getRest());
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
