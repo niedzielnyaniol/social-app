@@ -19,6 +19,7 @@ class UserPost extends React.Component {
       active: false,
       commentData: '',
       comments: [],
+      likes: props.post.likes,
     };
   }
 
@@ -29,6 +30,15 @@ class UserPost extends React.Component {
   handleClick = () => {
     const state = this.state.active;
     this.setState({ active: !state });
+  }
+
+  handleLike = () => {
+    axios.post('http://localhost:8000/api/triggerLike', {
+      postId: this.props.post.id,
+    }).then((data) => {
+      this.setState({ likes: data.data.success });
+      console.log(data.data.success);
+    });
   }
 
   formSubmit = () => {
@@ -66,9 +76,9 @@ class UserPost extends React.Component {
             {this.props.post.content}
           </Feed.Extra>
           <Feed.Meta>
-            <Feed.Like>
-              <Icon name="like" />
-              Like ({this.props.post.likes})
+            <Feed.Like onClick={this.handleLike} >
+              <Icon name="like" className={this.state.likes.length ? 'active' : ''} active={!!this.state.likes.length} />
+              Like ({this.state.likes})
             </Feed.Like>
           </Feed.Meta>
         </Feed.Content>

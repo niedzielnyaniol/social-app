@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +46,6 @@ class PostServiceController extends Controller
         ]);
     }
 
-
     /**
      * @Route("/api/addComment", name="api_add_comment")
      */
@@ -71,6 +71,35 @@ class PostServiceController extends Controller
 
         return new JsonResponse([
             'comment' => $comment->getRest()
+        ]);
+    }
+
+
+    /**
+     * @Route("/api/triggerLike", name="api_trigger_like")
+     */
+    public function triggerLike(Request $request)
+    {
+        $content = $request->getContent();
+        $params = json_decode($content, true);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $post = $em->getRepository('AppBundle:Post')->find($params['postId']);
+        /** @var ArrayCollection $likedBy */
+        $likedBy = $post->getLikedBy();
+
+        if ($likedBy->contains($this->getUser())) {
+            $likedBy->remove($this->getUser());
+        } else {
+            $likedBy[] = $this->getUser();
+        }
+
+        $em->persist($post);
+        $em->flush();
+
+        return new JsonResponse([
+            'success' => count($likedBy)
         ]);
     }
 }
