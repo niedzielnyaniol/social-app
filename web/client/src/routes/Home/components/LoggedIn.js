@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import forEach from 'lodash/forEach';
 
-import { Grid, Image, Rail, Segment, Sticky } from 'semantic-ui-react';
+import { Grid, Image, Rail, Segment, Sticky, Header } from 'semantic-ui-react';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import TextArea from 'semantic-ui-react/dist/commonjs/addons/TextArea/TextArea';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
@@ -14,6 +15,7 @@ import Feed from 'semantic-ui-react/dist/commonjs/views/Feed/Feed';
 import ProfileInfo from '../../../components/ProfileInfo';
 import UserShape from '../../../shapes/user';
 import UserPost from '../../../components/UserPost';
+import SideCard from '../../../components/SideCard';
 
 const StyledTextArea = styled(TextArea)`
   min-height: 175px;
@@ -32,6 +34,16 @@ class LoggedIn extends React.Component {
 
     this.handleContextRef = this.handleContextRef.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+
+    this.proposedFriends = [];
+  }
+
+  componentWillReceiveProps(props) {
+    for (let i = 0; i < 5; i++) {
+      this.proposedFriends.push(props.user);
+    }
+
+    console.log(this.proposedFriends);
   }
 
   onFormSubmit = () => {
@@ -94,7 +106,7 @@ class LoggedIn extends React.Component {
               <Form onSubmit={this.onFormSubmit}>
                 <StyledTextArea value={this.state.postData} placeholder="What's up?" onInput={(e, d) => this.onInputChange(d)} />
                 <Button.Group attached="bottom">
-                  <Button onClick={this.onFormSubmit} color="blue">Post</Button>
+                  <Button color="blue">Post</Button>
                   <Button.Or text="or" />
                   <Button onClick={this.clearPost}>Cancel</Button>
                 </Button.Group>
@@ -112,6 +124,12 @@ class LoggedIn extends React.Component {
             <Rail position="right">
               <Sticky context={contextRef} offset={73}>
                 <Placeholder />
+                <Header as="h3">Users that You could know</Header>
+                {
+                  this.proposedFriends.map((el, key) => (
+                    <SideCard user={el} key={key} /> // eslint-disable-line react/no-array-index-key
+                  ))
+                }
               </Sticky>
             </Rail>
           </div>

@@ -58,6 +58,16 @@ class Post
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Friends", mappedBy="requestRecipient")
+     */
+    private $invitations;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Friends", mappedBy="userWhoSend")
+     */
+    private $requestsSend;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -71,6 +81,38 @@ class Post
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInvitations()
+    {
+        return $this->invitations;
+    }
+
+    /**
+     * @param mixed $invitations
+     */
+    public function setInvitations($invitations)
+    {
+        $this->invitations = $invitations;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequestsSend()
+    {
+        return $this->requestsSend;
+    }
+
+    /**
+     * @param mixed $requestsSend
+     */
+    public function setRequestsSend($requestsSend)
+    {
+        $this->requestsSend = $requestsSend;
     }
 
     /**
