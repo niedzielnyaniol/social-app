@@ -74,6 +74,7 @@ class RestController extends Controller
                 }
 
                 array_push($posts, [
+                    'id' => $post->getId(),
                     'content' => $post->getContent(),
                     'author' => $post->getAuthor()->getRest(),
                     'createdAt' => $post->getCreatedAt(),

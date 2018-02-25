@@ -62,14 +62,10 @@ class LoggedIn extends React.Component {
       axios.post('http://localhost:8000/api/createPost', data, {
       }).then((dataa) => {
         const posts = cloneDeep(this.state.posts);
-        const newPost = {
-          ...dataa.data.post,
-          comments: [],
-        };
-        posts.unshift(newPost);
+        posts.unshift(dataa.data.post);
 
         this.setState({
-          posts,
+          posts: cloneDeep(posts),
           postData: '',
         });
       });
@@ -131,7 +127,7 @@ class LoggedIn extends React.Component {
                 <Feed>
                   {
                     this.state.posts.map((el, key) => (
-                      <UserPost post={el} key={key} /> // eslint-disable-line
+                      <UserPost userId={this.props.user.id} post={el} key={key} /> // eslint-disable-line
                     ))
                   }
                 </Feed>

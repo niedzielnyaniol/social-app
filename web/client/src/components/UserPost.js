@@ -1,6 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import moment from 'moment';
+import cloneDeep from 'lodash/cloneDeep';
 
 import { Feed, Icon, Button, Comment, Form, Accordion } from 'semantic-ui-react';
 
@@ -15,12 +17,39 @@ class UserPost extends React.Component {
     super(props);
     this.state = {
       active: false,
+      commentData: '',
+      comments: this.props.post.comments
+        .sort((a, b) => new Date(a.createdAt.date) - new Date(b.createdAt.date)),
     };
+  }
+
+  onInputChange(data) {
+    this.setState({ commentData: data.value });
   }
 
   handleClick = () => {
     const state = this.state.active;
     this.setState({ active: !state });
+  }
+
+  formSubmit = () => {
+    if (this.state.commentData.trim() !== '') {
+      this.setState({ commentData: '' });
+      const data = {
+        userId: this.props.userId,
+        postId: this.props.post.id,
+        content: this.state.commentData,
+      };
+
+      axios.post('http://localhost:8000/api/addComment', data).then((dataa) => {
+        const comments = cloneDeep(this.state.comments);
+        comments.push(dataa.data.comment);
+
+        this.setState({
+          comments,
+        });
+      });
+    }
   }
 
   render() {
@@ -49,11 +78,11 @@ class UserPost extends React.Component {
         <Accordion>
           <Accordion.Title active={this.state.active} onClick={() => { this.handleClick(); }}>
             <Icon name="dropdown" />
-            Comments ({this.props.post.comments.length})
+            Comments ({this.state.comments.length})
           </Accordion.Title>
           <Accordion.Content active={this.state.active}>
             {
-              this.props.post.comments.map((el, key) => (
+              this.state.comments.map((el, key) => (
                 // eslint-disable-next-line
                 <Comment key={key}>
                   <Comment.Avatar src={el.author.avatarUri} />
@@ -68,8 +97,11 @@ class UserPost extends React.Component {
               ))
             }
             <Form reply>
-              <Form.TextArea />
-              <Button content="Add Reply" labelPosition="left" icon="edit" primary />
+              <Form.TextArea
+                value={this.state.commentData}
+                onInput={(e, d) => this.onInputChange(d)}
+              />
+              <Button content="Add Reply" labelPosition="left" icon="edit" onClick={this.formSubmit} primary />
             </Form>
           </Accordion.Content>
         </Accordion>

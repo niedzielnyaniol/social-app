@@ -126,5 +126,13 @@ class Comment
         $this->post = $post;
     }
 
+    public function getRest() {
 
+        return array(
+            'id' => $this->id,
+            'content' => $this->content,
+            'createdAt' => $this->createdAt,
+            'author' => $this->getAuthor()->getRest(),
+        );
+    }
 }

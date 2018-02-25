@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,7 +34,43 @@ class PostServiceController extends Controller
         $em->flush();
 
         return new JsonResponse([
-            'post' => $post->getRest()
+            'post' => array(
+                'id' => $post->getId(),
+                'content' => $post->getContent(),
+                'createdAt' => $post->getCreatedAt(),
+                'likedBy' => $post->getLikedBy(),
+                'author' => $post->getAuthor()->getRest(),
+                'comments' => [],
+            )
+        ]);
+    }
+
+
+    /**
+     * @Route("/api/addComment", name="api_add_comment")
+     */
+    public function addComment(Request $request)
+    {
+        $content = $request->getContent();
+        $params = json_decode($content, true);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('AppBundle:User')->find($params['userId']);
+        $post = $em->getRepository('AppBundle:Post')->find($params['postId']);
+
+        $now = new \DateTime();
+        $comment = new Comment();
+        $comment->setAuthor($user);
+        $comment->setContent($params['content']);
+        $comment->setCreatedAt($now);
+        $comment->setPost($post);
+
+        $em->persist($comment);
+        $em->flush();
+
+        return new JsonResponse([
+            'comment' => $comment->getRest()
         ]);
     }
 }
