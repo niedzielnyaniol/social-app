@@ -9,6 +9,8 @@
 namespace AppBundle\Repository;
 
 
+use AppBundle\Entity\Friends;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 class FriendRepository extends EntityRepository
@@ -24,5 +26,27 @@ class FriendRepository extends EntityRepository
         ]);
 
         return isset($opt1) || isset($opt2);
+    }
+
+    public function getFriends(User $user) {
+        $f1 = $this->findBy([
+            'user1' => $user
+        ]);
+
+        $f2 = $this->findBy([
+            'user2' => $user
+        ]);
+
+        $result =[];
+        /** @var Friends $item */
+        foreach ($f1 as $item) {
+            array_push($result, $item->getUser2()->getRest());
+        }
+        /** @var Friends $item */
+        foreach ($f2 as $item) {
+            array_push($result, $item->getUser1()->getRest());
+        }
+
+        return $result;
     }
 }

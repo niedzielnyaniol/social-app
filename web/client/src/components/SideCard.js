@@ -32,7 +32,7 @@ class CardExampleGroups extends React.Component {
             <a href={`/users/${this.props.user.id}`}>{this.props.user.name} {this.props.user.surname}</a>
           </Card.Header>
           <Card.Meta>
-            Friends of Elliot
+            {this.props.user.friendsLen} friends
           </Card.Meta>
           <Button fluid onClick={() => this.invite()}>Invite</Button>
         </Card.Content>

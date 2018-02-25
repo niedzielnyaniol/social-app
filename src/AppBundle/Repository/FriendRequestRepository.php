@@ -9,6 +9,8 @@
 namespace AppBundle\Repository;
 
 
+use AppBundle\Entity\FriendsRequest;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 
 class FriendRequestRepository extends EntityRepository
@@ -24,5 +26,19 @@ class FriendRequestRepository extends EntityRepository
         ]);
 
         return isset($opt1) || isset($opt2);
+    }
+
+    public function getInvitations(User $user) {
+        $f2 = $this->findBy([
+            'userRecipient' => $user
+        ]);
+
+        $result =[];
+        /** @var FriendsRequest $item */
+        foreach ($f2 as $item) {
+            array_push($result, $item->getUserSend()->getRest());
+        }
+
+        return $result;
     }
 }

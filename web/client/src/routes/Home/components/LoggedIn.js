@@ -41,6 +41,8 @@ class LoggedIn extends React.Component {
   componentWillReceiveProps(props) {
     if (props.pageData && props.pageData.propsedUsers) {
       this.proposedFriends = props.pageData.propsedUsers;
+      this.requestLenght = props.pageData.invitationsLen;
+      this.friendsLenght = props.pageData.friendsLen;
     }
   }
 
@@ -80,14 +82,14 @@ class LoggedIn extends React.Component {
               <ProfileInfo user={this.props.user} />
               <Sticky context={contextRef} offset={73}>
                 <Menu vertical style={{ width: '100%' }}>
-                  <Menu.Item name="inbox" onClick={this.handleItemClick}>
-                    <Label color="teal">1</Label>
-                    Inbox
+                  <Menu.Item name="inbox" style={{ cursor: 'pointer' }} onClick={() => { window.location.href = '/invitations'; }}>
+                    <Label color="teal">{this.requestLenght}</Label>
+                    Invitations
                   </Menu.Item>
 
-                  <Menu.Item name="spam" onClick={this.handleItemClick}>
-                    <Label>51</Label>
-                    Spam
+                  <Menu.Item name="spam" style={{ cursor: 'pointer' }} onClick={() => { window.location.href = '/friends'; }}>
+                    <Label>{this.friendsLenght}</Label>
+                    Friends
                   </Menu.Item>
 
                   <Menu.Item name="updates" onClick={this.handleItemClick}>

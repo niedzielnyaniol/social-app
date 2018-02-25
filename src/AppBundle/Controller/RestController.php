@@ -43,14 +43,6 @@ class RestController extends Controller
     }
 
     /**
-     * @param User $user
-     * @return array
-     */
-    private function printUsers($user) {
-        return $user->getRest();
-    }
-
-    /**
      * @Route("/api/table-info", name="api_table-info")
      */
     public function getTableInfoAction()
@@ -58,6 +50,7 @@ class RestController extends Controller
         /** @var User $user */
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+        $friends = $em->getRepository('AppBundle:Friends')->getFriends($user);
 
         $retUsers = array();
         $users = $em->getRepository('AppBundle:User')->findAll();
@@ -67,12 +60,23 @@ class RestController extends Controller
                 && $users[$i]->getId() !== $user->getId()
                 && !$em->getRepository('AppBundle:FriendsRequest')->areInvited($users[$i], $user)
             ) {
-                array_push($retUsers, $users[$i]->getRest());
+                array_push($retUsers, [
+                    'id' => $users[$i]->getId(),
+                    'name' => $users[$i]->getFirstName(),
+                    'surname' => $users[$i]->getLastName(),
+                    'accountCreatedAt' => $users[$i]->getAccountCreatedAt(),
+                    'email' => $users[$i]->getEmail(),
+                    'avatarUri' => $users[$i]->getAvatarUri(),
+                    'friendsLen' => count($em->getRepository('AppBundle:Friends')->getFriends($users[$i])),
+                ]);
             }
         }
 
         return new JsonResponse([
-            'propsedUsers' => $retUsers
+
+            'propsedUsers' => $retUsers,
+            'friendsLen' => count($friends),
+            'invitationsLen' => count($em->getRepository('AppBundle:FriendsRequest')->getInvitations($user))
         ]);
     }
 }

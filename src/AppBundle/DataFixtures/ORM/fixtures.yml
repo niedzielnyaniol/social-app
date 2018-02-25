@@ -17,3 +17,23 @@ AppBundle\Entity\User:
         lastName: <lastName()>
         accountCreatedAt: <dateTime($max = 'now', $timezone = null)>
         avatarUri: '50%? images/default-male.jpg : images/default-female.jpg'
+
+AppBundle\Entity\Friends:
+    friendship_{1..10}:
+        user1: '@user_<current()>'
+        user2: '@admin'
+        createdAt: <dateTime($max = 'now', $timezone = null)>
+    friendship_{11..110}:
+        user1: '@user_*'
+        user2: '@user_*'
+        createdAt: <dateTime($max = 'now', $timezone = null)>
+
+AppBundle\Entity\FriendsRequest:
+    request_{7..10}:
+        userSend: '@user_<current()>'
+        userRecipient: '@admin'
+        createdAt: <dateTime($max = 'now', $timezone = null)>
+    request_{11..30}:
+        userSend: '@user_*'
+        userRecipient: '@user_*'
+        createdAt: <dateTime($max = 'now', $timezone = null)>
