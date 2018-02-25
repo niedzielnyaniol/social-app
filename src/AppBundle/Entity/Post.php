@@ -156,11 +156,12 @@ class Post
     }
 
     /**
-     * @param mixed $author
+     * @param User $author
      */
     public function setAuthor($author)
     {
         $this->author = $author;
+        $author->setPosts($this);
     }
 
     /**
@@ -195,11 +196,12 @@ class Post
     }
 
     /**
-     * @param mixed $comments
+     * @param Comment $comments
      */
     public function setComments($comments)
     {
-        $this->comments = $comments;
+        $comments->setPost($this);
+        $this->comments[] = $comments;
     }
 
     public function getRest() {

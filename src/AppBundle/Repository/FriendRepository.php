@@ -40,11 +40,11 @@ class FriendRepository extends EntityRepository
         $result =[];
         /** @var Friends $item */
         foreach ($f1 as $item) {
-            array_push($result, $item->getUser2()->getRest());
+            array_push($result, $item->getUser2());
         }
         /** @var Friends $item */
         foreach ($f2 as $item) {
-            array_push($result, $item->getUser1()->getRest());
+            array_push($result, $item->getUser2());
         }
 
         return $result;

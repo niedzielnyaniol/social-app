@@ -16,6 +16,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -91,11 +96,16 @@ class User implements UserInterface
     }
 
     /**
-     * @param mixed $posts
+     * @param Post $posts
      */
     public function setPosts($posts)
     {
-        $this->posts = $posts;
+        if ($this->posts->contains($posts)) {
+            return;
+        }
+
+        $this->posts[] = $posts;
+        $posts->setAuthor($this);
     }
 
     /**

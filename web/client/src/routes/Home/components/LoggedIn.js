@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import forEach from 'lodash/forEach';
+import cloneDeep from 'lodash/cloneDeep';
 
 import { Grid, Image, Rail, Segment, Sticky, Header } from 'semantic-ui-react';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
@@ -30,6 +30,7 @@ class LoggedIn extends React.Component {
     super(props);
     this.state = {
       postData: '',
+      posts: [],
     };
 
     this.handleContextRef = this.handleContextRef.bind(this);
@@ -43,21 +44,36 @@ class LoggedIn extends React.Component {
       this.proposedFriends = props.pageData.propsedUsers;
       this.requestLenght = props.pageData.invitationsLen;
       this.friendsLenght = props.pageData.friendsLen;
+
+      this.setState({
+        posts: props.pageData.posts
+          .sort((b, a) => new Date(a.createdAt.date) - new Date(b.createdAt.date)),
+      });
     }
   }
 
   onFormSubmit = () => {
-    const data = {
-      userId: this.props.user.id,
-      content: this.state.postData,
-    };
+    if (this.state.postData.trim() !== '') {
+      const data = {
+        userId: this.props.user.id,
+        content: this.state.postData,
+      };
 
-    axios.post('http://localhost:8000/api/createPost', data, {
-    }).then((data) => {
-      console.log(data);
-    }).catch((err) => {
-      console.log(err);
-    });
+      axios.post('http://localhost:8000/api/createPost', data, {
+      }).then((dataa) => {
+        const posts = cloneDeep(this.state.posts);
+        const newPost = {
+          ...dataa.data.post,
+          comments: [],
+        };
+        posts.unshift(newPost);
+
+        this.setState({
+          posts,
+          postData: '',
+        });
+      });
+    }
   }
 
   onInputChange(data) {
@@ -103,21 +119,21 @@ class LoggedIn extends React.Component {
               </Sticky>
             </Rail>
             <div>
-              <Form onSubmit={this.onFormSubmit}>
+              <Form>
                 <StyledTextArea value={this.state.postData} placeholder="What's up?" onInput={(e, d) => this.onInputChange(d)} />
                 <Button.Group attached="bottom">
-                  <Button color="blue">Post</Button>
+                  <Button color="blue" onClick={this.onFormSubmit}>Post</Button>
                   <Button.Or text="or" />
                   <Button onClick={this.clearPost}>Cancel</Button>
                 </Button.Group>
               </Form>
-              <Segment style={{ height: 2000 }}>
+              <Segment style={{ marginBottom: 70 }}>
                 <Feed>
-                  {/* {
-                    data.map((el, key) => (
-                      <UserPost user={el.user} post={el.post} key={key} /> // eslint-disable-line
+                  {
+                    this.state.posts.map((el, key) => (
+                      <UserPost post={el} key={key} /> // eslint-disable-line
                     ))
-                  } */}
+                  }
                 </Feed>
               </Segment>
             </div>

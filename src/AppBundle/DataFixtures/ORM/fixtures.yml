@@ -7,7 +7,7 @@ AppBundle\Entity\User:
         firstName: mac
         lastName: kac
         avatarUri: images/default-male.jpg
-        accountCreatedAt: <dateTime($max = 'now', $timezone = null)>
+        accountCreatedAt: <dateTimeBetween($startDate = '-10 days', $endDate = 'now', $timezone = null)>
     user_{1..20}:
         email (unique): <email()>
         plainPassword: 123
@@ -15,7 +15,7 @@ AppBundle\Entity\User:
         gender: '50%? male : female'
         firstName: <firstName()>
         lastName: <lastName()>
-        accountCreatedAt: <dateTime($max = 'now', $timezone = null)>
+        accountCreatedAt: <dateTimeBetween($startDate = '-10 days', $endDate = 'now', $timezone = null)>
         avatarUri: '50%? images/default-male.jpg : images/default-female.jpg'
 
 AppBundle\Entity\Friends:
@@ -26,14 +26,27 @@ AppBundle\Entity\Friends:
     friendship_{11..110}:
         user1: '@user_*'
         user2: '@user_*'
-        createdAt: <dateTime($max = 'now', $timezone = null)>
+        createdAt: <dateTimeBetween($startDate = '-10 days', $endDate = 'now', $timezone = null)>
 
 AppBundle\Entity\FriendsRequest:
     request_{7..10}:
         userSend: '@user_<current()>'
         userRecipient: '@admin'
-        createdAt: <dateTime($max = 'now', $timezone = null)>
+        createdAt: <dateTimeBetween($startDate = '-10 days', $endDate = 'now', $timezone = null)>
     request_{11..30}:
         userSend: '@user_*'
         userRecipient: '@user_*'
-        createdAt: <dateTime($max = 'now', $timezone = null)>
+        createdAt: <dateTimeBetween($startDate = '-10 days', $endDate = 'now', $timezone = null)>
+
+AppBundle\Entity\Post:
+    post_{1..10}:
+        content: <sentences($nb = 3, $asText = true)>
+        author: '@user_*'
+        createdAt: <dateTimeBetween($startDate = '-10 days', $endDate = 'now', $timezone = null)>
+
+AppBundle\Entity\Comment:
+    comment_{1..10}:
+        content: <sentences($nb = 1, $asText = true)>
+        author: '@user_*'
+        createdAt: <dateTimeBetween($startDate = '-10 days', $endDate = 'now', $timezone = null)>
+        post: '@post_*'

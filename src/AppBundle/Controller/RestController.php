@@ -2,7 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
+use AppBundle\Entity\Post;
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -43,6 +46,46 @@ class RestController extends Controller
     }
 
     /**
+     * @param EntityManager $em
+     * @param array User $users
+     */
+    public function getPosts(EntityManager $em, $users) {
+        $posts = [];
+        /** @var User $user */
+        foreach ($users as $user) {
+            $tmpPosts = $em->getRepository('AppBundle:Post')->findBy([
+                'author' => $user
+            ]);
+
+            /** @var Post $post */
+            foreach ($tmpPosts as $post) {
+                $comments = [];
+                $tmpComments = $em->getRepository('AppBundle:Comment')->findBy([
+                    'post' => $post
+                ]);
+
+                /** @var Comment $tmpComment */
+                foreach ($tmpComments as $tmpComment) {
+                    array_push($comments, [
+                        'content' => $tmpComment->getContent(),
+                        'createdAt' => $tmpComment->getCreatedAt(),
+                        'author' => $tmpComment->getAuthor()->getRest(),
+                    ]);
+                }
+
+                array_push($posts, [
+                    'content' => $post->getContent(),
+                    'author' => $post->getAuthor()->getRest(),
+                    'createdAt' => $post->getCreatedAt(),
+                    'comments' => $comments
+                ]);
+            }
+        }
+
+        return $posts;
+    }
+
+    /**
      * @Route("/api/table-info", name="api_table-info")
      */
     public function getTableInfoAction()
@@ -54,6 +97,8 @@ class RestController extends Controller
 
         $retUsers = array();
         $users = $em->getRepository('AppBundle:User')->findAll();
+        $posts = $this->getPosts($em, $users);
+
 
         for ($i = 0; count($retUsers) < 3; $i++) {
             if (!$em->getRepository('AppBundle:Friends')->areFriends($users[$i], $user)
@@ -73,7 +118,7 @@ class RestController extends Controller
         }
 
         return new JsonResponse([
-
+            'posts' => $posts,
             'propsedUsers' => $retUsers,
             'friendsLen' => count($friends),
             'invitationsLen' => count($em->getRepository('AppBundle:FriendsRequest')->getInvitations($user))
