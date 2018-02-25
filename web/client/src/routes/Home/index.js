@@ -6,6 +6,7 @@ import View from './View';
 function mapStateToProps(state) {
   return {
     user: state.user,
+    pageData: state.pageData,
   };
 }
 

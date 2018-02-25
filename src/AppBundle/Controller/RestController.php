@@ -36,15 +36,38 @@ class RestController extends Controller
         ]);
         $response = new JsonResponse();
 
-        $response->setData(array(
-            'id' => $user->getId(),
-            'name' => $user->getFirstName(),
-            'surname' => $user->getLastName(),
-            'email' => $user->getEmail(),
-            'avatarUri' => $user->getAvatarUri(),
-        ));
+        $response->setData($user->getRest());
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
+    }
+
+    /**
+     * @param User $user
+     * @return array
+     */
+    private function printUsers($user) {
+        return $user->getRest();
+    }
+
+    /**
+     * @Route("/api/table-info", name="api_table-info")
+     */
+    public function getTableInfoAction()
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $retUsers = array();
+        $users = $em->getRepository('AppBundle:User')->findAll();
+
+        for ($i = 0; $i < 5; $i++) {
+            array_push($retUsers, $users[$i]->getRest());
+        }
+
+        return new JsonResponse([
+            'propsedUsers' => $retUsers
+        ]);
     }
 }

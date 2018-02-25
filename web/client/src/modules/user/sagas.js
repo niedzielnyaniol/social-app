@@ -1,26 +1,24 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
-import { search, getUser } from './api';
+import { getPageData as pageData, getUser } from './api';
 import {
-  receiveSearch,
+  receiveGetPageData,
   receiveUser,
-  REQUEST_SEARCH,
+  REQUEST_PAGE_DATA,
   REQUEST_GET_USER,
 } from './actions';
 
-function* callSearch({ payload: { data, redirect } }) {
-  const users = yield call(search, data);
-  yield put(receiveSearch(users.data));
-  redirect();
+function* callGetPageData() {
+  const data = yield call(pageData);
+  yield put(receiveGetPageData(data.data));
 }
 
-export function* searchSaga() {
-  yield takeEvery(REQUEST_SEARCH, callSearch);
+export function* getPageData() {
+  yield takeEvery(REQUEST_PAGE_DATA, callGetPageData);
 }
 
 function* callGetUser({ payload: { email } }) {
   const user = yield call(getUser, email);
-  console.log(user);
   yield put(receiveUser(user.data));
 }
 

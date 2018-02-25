@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { requestGetUser } from '../modules/user/actions';
+import { requestGetUser, requestGetPageData } from '../modules/user/actions';
 
 export default function getUser(Component) {
   class AuthenticatedComponent extends React.Component {
@@ -10,6 +10,7 @@ export default function getUser(Component) {
       this.props.requestGetUser({
         email: 'mac',
       });
+      this.props.requestGetPageData();
     }
 
     render() {
@@ -32,6 +33,7 @@ export default function getUser(Component) {
   function mapDispatchToProps(dispatch) {
     return bindActionCreators({
       requestGetUser,
+      requestGetPageData,
     }, dispatch);
   }
 

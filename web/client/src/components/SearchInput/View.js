@@ -25,20 +25,20 @@ class SearchInput extends React.Component {
   }
 
   handleSubmit(e) {
-    this.props.requestSearch({
-      data: {
-        data: this.state.inputContent,
-      },
-      redirect: () => {
-        const params = new URLSearchParams(this.props.location.search);
-        const next = params.get('next');
-        if (next) {
-          this.props.history.push(next);
-        } else {
-          this.props.history.push('/search');
-        }
-      },
-    });
+    // this.props.requestSearch({
+    //   data: {
+    //     data: this.state.inputContent,
+    //   },
+    //   redirect: () => {
+    //     const params = new URLSearchParams(this.props.location.search);
+    //     const next = params.get('next');
+    //     if (next) {
+    //       this.props.history.push(next);
+    //     } else {
+    //       this.props.history.push('/search');
+    //     }
+    //   },
+    // });
     this.setState({ inputContent: '' });
     e.preventDefault();
   }

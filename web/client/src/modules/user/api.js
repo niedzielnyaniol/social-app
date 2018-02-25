@@ -5,6 +5,7 @@ export async function getUser(email) {
   return val;
 }
 
-export async function search() {
-  console.log('search');
+export async function getPageData() {
+  const val = await axios.get('http://localhost:8000/api/table-info');
+  return val;
 }

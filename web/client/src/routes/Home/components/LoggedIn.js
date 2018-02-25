@@ -39,11 +39,9 @@ class LoggedIn extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    for (let i = 0; i < 5; i++) {
-      this.proposedFriends.push(props.user);
+    if (props.pageData && props.pageData.propsedUsers) {
+      this.proposedFriends = props.pageData.propsedUsers;
     }
-
-    console.log(this.proposedFriends);
   }
 
   onFormSubmit = () => {

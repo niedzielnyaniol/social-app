@@ -1,8 +1,13 @@
 import { handleAction } from 'redux-actions';
-import { receiveUser } from './actions';
+import { receiveUser, receiveGetPageData } from './actions';
 
-// eslint-disable-next-line
 export const user = handleAction(receiveUser, {
+  next(state, action) {
+    return action.payload;
+  },
+}, {});
+
+export const pageData = handleAction(receiveGetPageData, {
   next(state, action) {
     return action.payload;
   },

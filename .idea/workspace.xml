@@ -2,12 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79381a9f-b745-411c-afdc-231c23f5cb02" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Friends.php" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/FriendsRequest.php" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/fixtures.yml" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/fixtures.yml" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Post.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Post.php" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Controller/RestController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/RestController.php" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/components/GetUser.js" afterPath="$PROJECT_DIR$/web/client/src/components/GetUser.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/components/SearchInput/View.js" afterPath="$PROJECT_DIR$/web/client/src/components/SearchInput/View.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/components/SearchInput/index.js" afterPath="$PROJECT_DIR$/web/client/src/components/SearchInput/index.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/modules/index.js" afterPath="$PROJECT_DIR$/web/client/src/modules/index.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/modules/user/actions.js" afterPath="$PROJECT_DIR$/web/client/src/modules/user/actions.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/modules/user/api.js" afterPath="$PROJECT_DIR$/web/client/src/modules/user/api.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/modules/user/reducers.js" afterPath="$PROJECT_DIR$/web/client/src/modules/user/reducers.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/modules/user/sagas.js" afterPath="$PROJECT_DIR$/web/client/src/modules/user/sagas.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/routes/Home/View.js" afterPath="$PROJECT_DIR$/web/client/src/routes/Home/View.js" />
       <change beforePath="$PROJECT_DIR$/web/client/src/routes/Home/components/LoggedIn.js" afterPath="$PROJECT_DIR$/web/client/src/routes/Home/components/LoggedIn.js" />
+      <change beforePath="$PROJECT_DIR$/web/client/src/routes/Home/index.js" afterPath="$PROJECT_DIR$/web/client/src/routes/Home/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,7 +30,7 @@
     <splitter split-orientation="horizontal" split-proportion="0.49444443">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="fixtures.yml" pinned="false" current-in-tab="true">
+          <file leaf-file-name="fixtures.yml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/fixtures.yml">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="306">
@@ -58,7 +65,7 @@
           <file leaf-file-name="FriendsRequest.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/FriendsRequest.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
+                <state relative-caret-position="459">
                   <caret line="32" column="21" lean-forward="false" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
                   <folding />
                 </state>
@@ -75,13 +82,15 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="RestController.php" pinned="false" current-in-tab="false">
+          <file leaf-file-name="RestController.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/RestController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="289">
-                  <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+                <state relative-caret-position="776">
+                  <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
                   <folding>
                     <element signature="e#40#66#0#PHP" expanded="true" />
+                    <element signature="e#878#894#1#PHP" expanded="true" />
+                    <element signature="e#1584#1600#1#PHP" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -104,7 +113,7 @@
           <file leaf-file-name="Post.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Post.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="198">
+                <state relative-caret-position="561">
                   <caret line="39" column="7" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
                   <folding>
                     <element signature="e#120#168#0#PHP" expanded="true" />
@@ -146,7 +155,7 @@
           <file leaf-file-name="User.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="662">
+                <state relative-caret-position="2822">
                   <caret line="243" column="57" lean-forward="false" selection-start-line="243" selection-start-column="41" selection-end-line="243" selection-end-column="57" />
                   <folding />
                 </state>
@@ -173,6 +182,7 @@
       <find>path</find>
       <find>paths</find>
       <find>likedBy</find>
+      <find>getREpository</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -205,12 +215,12 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Comment.php" />
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/RestController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/PostServiceController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Friends.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Post.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/FriendsRequest.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/fixtures.yml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/RestController.php" />
       </list>
     </option>
   </component>
@@ -315,7 +325,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -384,6 +393,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -431,21 +441,24 @@
       <workItem from="1519420183334" duration="170000" />
       <workItem from="1519459738241" duration="1096000" />
       <workItem from="1519468870224" duration="3082000" />
-      <workItem from="1519548915812" duration="2153000" />
+      <workItem from="1519548915812" duration="2649000" />
+      <workItem from="1519553289093" duration="2252000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24654000" />
+    <option name="totallyTimeSpent" value="27402000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -457,7 +470,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -747,16 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/RestController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="20" column="43" lean-forward="false" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
-          <folding>
-            <element signature="e#40#66#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PostServiceController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -769,7 +771,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Post.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
+        <state relative-caret-position="561">
           <caret line="39" column="7" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="39" selection-end-column="7" />
           <folding>
             <element signature="e#120#168#0#PHP" expanded="true" />
@@ -779,7 +781,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/FriendsRequest.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
+        <state relative-caret-position="459">
           <caret line="32" column="21" lean-forward="false" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
           <folding />
         </state>
@@ -793,19 +795,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="662">
-          <caret line="243" column="57" lean-forward="false" selection-start-line="243" selection-start-column="41" selection-end-line="243" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/ORM/fixtures.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2822">
+          <caret line="243" column="57" lean-forward="false" selection-start-line="243" selection-start-column="41" selection-end-line="243" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/RestController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="776">
+          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="e#40#66#0#PHP" expanded="true" />
+            <element signature="e#878#894#1#PHP" expanded="true" />
+            <element signature="e#1584#1600#1#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
