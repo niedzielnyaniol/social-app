@@ -16,6 +16,8 @@ import ProfileInfo from '../../../components/ProfileInfo';
 import UserShape from '../../../shapes/user';
 import UserPost from '../../../components/UserPost';
 import SideCard from '../../../components/SideCard';
+import SideMenu from '../../../components/SideMenu';
+import Chat from '../../../components/Chat';
 
 const StyledTextArea = styled(TextArea)`
   min-height: 175px;
@@ -87,7 +89,7 @@ class LoggedIn extends React.Component {
 
   render() {
     const { contextRef } = this.state;
-    return (
+    return [
       <Grid centered>
         <Grid.Column width={7} style={{ paddingTop: 0 }}>
           <div ref={this.handleContextRef}>
@@ -147,8 +149,10 @@ class LoggedIn extends React.Component {
             </Rail>
           </div>
         </Grid.Column>
-      </Grid>
-    );
+      </Grid>,
+      <SideMenu />,
+      <Chat />,
+    ];
   }
 }
 

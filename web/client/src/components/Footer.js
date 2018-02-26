@@ -8,8 +8,6 @@ const StyledFooter = styled.div`
   height: 50px;
   background: #2185D0;
   display: float;
-  position: fixed;
-  bottom: 0;
   align-items: center;
 `;
 

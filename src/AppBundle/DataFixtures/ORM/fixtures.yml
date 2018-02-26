@@ -42,7 +42,6 @@ AppBundle\Entity\Post:
     post_{1..10}:
         content: <sentences($nb = 3, $asText = true)>
         author: '@user_*'
-        likedBy: ['@user_*', '@user_*']
         createdAt: <dateTimeBetween($startDate = '-10 days', $endDate = 'now', $timezone = null)>
 
 AppBundle\Entity\Comment:

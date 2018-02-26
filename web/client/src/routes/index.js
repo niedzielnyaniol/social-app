@@ -18,7 +18,7 @@ export default () => (
       <Container style={{ flex: 1 }}>
         <Route exact path="/" component={getUser(Home)} />
       </Container>
-      <Route path="/" render={(props) => (<Footer {...props} />)} />
+      {/* <Route path="/" render={(props) => (<Footer {...props} />)} /> */}
     </Site>
   </BrowserRouter>
 );
