@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import App from './App';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Radium from 'radium';
@@ -10,41 +8,18 @@ import MessageList from './messages/MessageList';
 import JoinForm from '../JoinForm';
 import SendMessageForm from '../SendMessageForm';
 
-const Container = styled.div`
-  width: 270px;
-  position: fixed;
-  bottom: 0;
-  background: #fefefe;
-  right: 240px;
-`;
+const styles = {
+  row: {
+    margin: '0px',
+    padding: '0px',
+    display: 'flex',
+    flexFlow: 'row nowrap',
+  },
+};
 
-const Content = styled.div`
-  border: 1px solid rgba(34,36,38,.1);
-  border-top: none;
-  border-bottom: none;
-`;
-
-const Header = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  background: #2185D0;
-  padding: 5px 10px;
-  color: #fff;
-  min-height: 29px;
-`;
-
-const BtnX = styled.div`
-  float: right;
-  cursor: pointer;
-`;
-
-class Chat extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      visible: true,
-      hidden: false,
-    };
 
     this.join = bind(this.join, this);
     this.sendMessage = bind(this.sendMessage, this);
@@ -65,14 +40,6 @@ class Chat extends Component {
 
   typing() {
     this.props.actions.typing();
-  }
-
-  hide = () => {
-    this.setState({ hidden: !this.state.hidden });
-  }
-
-  close = () => {
-    this.setState({ visible: false });
   }
 
   renderForm() {
@@ -99,20 +66,16 @@ class Chat extends Component {
     const form = this.renderForm();
 
     return (
-      this.state.visible ?
-        <Container>
-          <Header onClick={this.hide}>Chat<BtnX onClick={this.close}>&#10006;</BtnX></Header>
-          {
-            this.state.hidden ? null : [
-              <Content >
-                <MessageList
-                  messages={messages}
-                />
-                {form}
-              </Content>,
-            ]
-          }
-        </Container> : null
+      <div>
+        <div style={styles.row}>
+          <MessageList
+            messages={messages}
+          />
+        </div>
+        <div style={styles.row}>
+          {form}
+        </div>
+      </div>
     );
   }
 }
@@ -136,5 +99,4 @@ function mapDispatchToProps(dispatch) {
 export default Radium(connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Chat));
-// export default Chat;
+)(App));
