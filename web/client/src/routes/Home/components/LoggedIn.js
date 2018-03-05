@@ -39,6 +39,7 @@ class LoggedIn extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
 
     this.proposedFriends = [];
+    this.chatFriends = [];
   }
 
   componentWillReceiveProps(props) {
@@ -46,6 +47,7 @@ class LoggedIn extends React.Component {
       this.proposedFriends = props.pageData.propsedUsers;
       this.requestLenght = props.pageData.invitationsLen;
       this.friendsLenght = props.pageData.friendsLen;
+      this.chatFriends = props.pageData.chatFriends;
 
       this.setState({
         posts: props.pageData.posts
@@ -157,7 +159,7 @@ class LoggedIn extends React.Component {
           </div>
         </Grid.Column>
       </Grid>,
-      <SideMenu />,
+      <SideMenu friends={this.chatFriends} />,
       <Chat />,
     ];
   }

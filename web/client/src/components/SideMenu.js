@@ -14,26 +14,20 @@ class SideMenu extends Component {
               Recent Activity
             </Card.Header>
           </Card.Content>
-          <Card.Content style={{ flexGrow: 'initial', cursor: 'pointer' }} onClick={() => {}}>
-            <Feed>
-              <Feed.Event>
-                <Feed.Label image="/assets/images/avatar/small/jenny.jpg" />
-                <Feed.Content>
-                  <Feed.Summary>Jenny Hess</Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
-            </Feed>
-          </Card.Content>
-          <Card.Content style={{ flexGrow: 'initial' }}>
-            <Feed>
-              <Feed.Event>
-                <Feed.Label image="/assets/images/avatar/small/jenny.jpg" />
-                <Feed.Content>
-                  <Feed.Summary>Jenny Hess</Feed.Summary>
-                </Feed.Content>
-              </Feed.Event>
-            </Feed>
-          </Card.Content>
+          {
+            this.props.friends.map((el) => (
+              <Card.Content style={{ flexGrow: 'initial', cursor: 'pointer' }} onClick={() => {}}>
+                <Feed>
+                  <Feed.Event>
+                    <Feed.Label image={el.avatarUri} />
+                    <Feed.Content>
+                      <Feed.Summary>{el.name} {el.surname}</Feed.Summary>
+                    </Feed.Content>
+                  </Feed.Event>
+                </Feed>
+              </Card.Content>
+            ))
+          }
           <div style={{ borderBottom: '1px solid rgba(34,36,38,.1)' }} />
         </Card>
       </Menu>

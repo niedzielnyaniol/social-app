@@ -57,6 +57,7 @@ class UserController extends Controller
 
             // przypisanie obrazu avatara do użytkownika
             $user->setAvatarUri($folderName.$fileName);
+            $user->setAccountCreatedAt(new \DateTime());
 
             $em = $this->getDoctrine()->getManager();
             // zapisanie obiektu użytkownika przez ORM Doctrine 2 do bazy danych
@@ -92,6 +93,10 @@ class UserController extends Controller
             'userRecipient' => $user->getId(),
         ]);
 
+        $posts = $em->getRepository('AppBundle:Post')->findBy([
+            'author' => $user
+        ]);
+
         $areFriends = $em->getRepository('AppBundle:Friends')->areFriends(
             $this->getUser(),
             $user
@@ -102,6 +107,7 @@ class UserController extends Controller
             'inviteBtn' => !isset($friendsReq1),
             'acceptBtn' => isset($friendsReq2),
             'areFriends' => $areFriends,
+            'posts' => $posts,
         ));
     }
 

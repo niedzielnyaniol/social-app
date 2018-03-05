@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export async function getUser(email) {
-  const val = await axios.get(`http://localhost:8000/api/user/${email}`);
+export async function getUser() {
+  const val = await axios.get('http://localhost:8000/api/user');
   return val;
 }
 

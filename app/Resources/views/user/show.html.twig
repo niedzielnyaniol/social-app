@@ -1,48 +1,96 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-8">
-                <h1>
-                    {% if user.fullName %}
-                        {{ user.fullName }}
-                    {% else %}
-                        {{ user.email }}
-                    {% endif %}
+    <div class="ui container">
+        <div class="ui centered grid">
+            <div class="seven wide column">
+                <div>
+                    <div class="ui left rail" style="margin-right: 11px; margin-top: 20px">
+                        <div class="ui card">
+                            <img class="ui image" src="{{ asset(user.avatarUri) }}">
+                            <div class="content">
+                                <div class="header">{{ user.fullName }}</div>
+                                <div class="meta"><span class="date">Joined in 2018</span></div>
+                                <div class="meta"><span class="date">{{ user.email }}</span></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                            </div>
+                            <div style="">
+                                <div class="ui vertical menu" style="width: 100%;">
+                                    <a class="item" style="cursor: pointer;"><div class="ui teal label">0</div>Invitations</a>
 
-                    <a href="{{ path('user_edit', {
-                        id: user.id
-                    }) }}" class="pull-right btn btn-link">
-                        <span class="fa fa-pencil"></span>
-                    </a>
-                </h1>
-
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{ user.fullName|default('-') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{ user.email }}</td>
-                    </tr>
-                    <tr>
-                        <th>Avatar</th>
-                        <td><img src="{{ asset(user.avatarUri) }}" alt="avatar"></td>
-                    </tr>
-                    </tbody>
-                </table>
-                {% if areFriends %}
-                    Friends!
-                {% else %}
-                    {% if acceptBtn %}
-                        <a href="{{ path('accept_invite', {'id': user.id}) }}">User has invited you, accept</a>
-                    {% elseif inviteBtn %}
-                        <a href="{{ path('invite_user', {'id': user.id}) }}">Invite</a>
-                    {% endif %}
-                {% endif %}
+                                    {% if areFriends %}
+                                        <a class="item" style="cursor: pointer;">Friend of You</a>
+                                    {% else %}
+                                        {% if acceptBtn %}
+                                            <a href="{{ path('accept_invite', {'id': user.id}) }}" class="item" style="cursor: pointer;">User has invited you, accept</a>
+                                        {% elseif inviteBtn %}
+                                            <a href="{{ path('invite_user', {'id': user.id}) }}" class="item" style="cursor: pointer;">Invite!</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="ui segment" style="margin-bottom: 70px">
+                            <div class="ui feed">
+                                {% for post in posts %}
+                                    <div class="event">
+                                        <div class="label"><img src="{{ asset(user.avatarUri) }}"></div>
+                                        <div class="content">
+                                            <div class="summary">
+                                                <a href="/users/{{ user.id }}">{{ user.fullName }}</a> posted on his page
+                                                <div class="date">{{ post.createdAt|date }}</div>
+                                            </div>
+                                            <div class="text extra">{{ post.content }}</div>
+                                            <div class="meta"><a class="like"><i aria-hidden="true" class="like icon"></i>Like (0)</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="ui comments" style="margin-top: 0px; width: 100%;">
+                                        <div class="accordion ui">
+                                            <div class="title">
+                                                <i aria-hidden="true" class="dropdown icon"></i>
+                                                Comments ({{ post.comments|length }})
+                                            </div>
+                                            <div class="content active">
+                                                {% for comment in post.comments %}
+                                                <div class="comment">
+                                                    <div class="avatar"><img src="{{ asset(comment.author.avatarUri) }}"></div>
+                                                    <div class="content">
+                                                        <a class="author">{{ comment.author.firstName }} {{ comment.author.lastName }}</a>
+                                                        <div class="metadata"><div>{{ comment.createdAt|date }}</div></div>
+                                                        <div class="text">{{ comment.content }}</div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                <form class="ui reply form">
+                                                    <div class="field"><textarea rows="3"></textarea></div>
+                                                    <button class="ui icon primary left labeled button" role="button"><i aria-hidden="true" class="edit icon"></i>Add Reply</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui right rail" style="margin-top: 20px">
+                        <h2>More info:</h2>
+                        <div class="ui vertical menu" style="width: 100%;">
+                            <span class="item">Profile description:<br/><b>{{ user.profileDescription }}</b></span>
+                        </div>
+                        <div class="ui vertical menu" style="width: 100%;">
+                            <span class="item">City:<br/><b>{{ user.city }}</b></span>
+                        </div>
+                        <div class="ui vertical menu" style="width: 100%;">
+                            <span class="item">Gender:<br/>
+                                <b>{{ user.gender }}</b></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

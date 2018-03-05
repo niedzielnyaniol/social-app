@@ -100,7 +100,22 @@ class RestController extends Controller
         $retUsers = array();
         $users = $em->getRepository('AppBundle:User')->findAll();
         $posts = $this->getPosts($em, $users);
+        $fusers = [];
 
+        for ($i = 0; count($fusers) < 20; $i++) {
+            if ($em->getRepository('AppBundle:Friends')->areFriends($users[$i], $user) !== null
+                && $users[$i]->getId() !== $user->getId()) {
+                array_push($fusers, [
+                    'id' => $users[$i]->getId(),
+                    'name' => $users[$i]->getFirstName(),
+                    'surname' => $users[$i]->getLastName(),
+                    'accountCreatedAt' => $users[$i]->getAccountCreatedAt(),
+                    'email' => $users[$i]->getEmail(),
+                    'avatarUri' => $users[$i]->getAvatarUri(),
+                    'friendsLen' => count($em->getRepository('AppBundle:Friends')->getFriends($users[$i])),
+                ]);
+            }
+        }
 
         for ($i = 0; count($retUsers) < 3; $i++) {
             if (!$em->getRepository('AppBundle:Friends')->areFriends($users[$i], $user)
@@ -123,6 +138,7 @@ class RestController extends Controller
             'posts' => $posts,
             'propsedUsers' => $retUsers,
             'friendsLen' => count($friends),
+            'chatFriends' => $fusers,
             'invitationsLen' => count($em->getRepository('AppBundle:FriendsRequest')->getInvitations($user))
         ]);
     }

@@ -88,12 +88,12 @@ class User implements UserInterface
     private $accountCreatedAt;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $profileDescription;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $city;
 

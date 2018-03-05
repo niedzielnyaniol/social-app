@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\UserRegistrationForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -15,7 +16,10 @@ class HomeController extends Controller
 
             return new BinaryFileResponse($stream);
         }
+        $form = $this->createForm(UserRegistrationForm::class);
 
-        return $this->render('home/homepage.html.twig');
+        return $this->render('home/homepage.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
