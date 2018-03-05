@@ -55,20 +55,27 @@ class LoggedIn extends React.Component {
   }
 
   onFormSubmit = () => {
+    // usunięcie tzw. białych znaków z wiadomości
     if (this.state.postData.trim() !== '') {
+      // payload zawierający id użytkownika oraz wiadomość
       const data = {
         userId: this.props.user.id,
         content: this.state.postData,
       };
 
+      // wysłanie publikacji zapytaniem typu POST na podany adres
       axios.post('http://localhost:8000/api/createPost', data, {
       }).then((dataa) => {
+        // otrzymanie wiadomości zwtrotnej, która zawiera owy post rozszerzony o date utworzenia
         const posts = cloneDeep(this.state.posts);
+        // dodanie publikacji do tablicy
         posts.push(dataa.data.post);
 
         this.setState({
+            // sotrtowanie postów po dacie utworzenia
           posts: posts
             .sort((b, a) => new Date(a.createdAt.date) - new Date(b.createdAt.date)),
+            // wymazanie wiadomości z formularza
           postData: '',
         });
       });

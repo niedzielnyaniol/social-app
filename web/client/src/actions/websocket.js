@@ -4,11 +4,12 @@ import { messageTypes, uri } from '../modules/reducers/config';
 const socket = io(uri);
 
 const init = (store) => {
-  // add listeners to socket messages so we can re-dispatch them as actions
+  // subksrybcja wiadomości wysłanej z serwera
   Object.keys(messageTypes)
     .forEach((type) => socket.on(type, (payload) => store.dispatch({ type, payload })));
 };
 
+// funkcja wysyłająca zdarzenie z wiadomością
 const emit = (type, payload) => socket.emit(type, payload);
 
 export {

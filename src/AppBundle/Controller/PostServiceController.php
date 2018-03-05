@@ -18,22 +18,28 @@ class PostServiceController extends Controller
      */
     public function createPostAction(Request $request)
     {
+        // odebranie zapytania typu POST
         $content = $request->getContent();
         $params = json_decode($content, true);
 
+        // pobranie menedżera Doctrine 2 ORM
         $em = $this->getDoctrine()->getManager();
 
+        // pobranie modelu User
         $user = $em->getRepository('AppBundle:User')->find($params['userId']);
 
+        // utworzenie publikacji
         $now = new \DateTime();
         $post = new Post();
         $post->setAuthor($user);
         $post->setContent($params['content']);
         $post->setCreatedAt($now);
 
+        // zapisanie publikacji
         $em->persist($post);
         $em->flush();
 
+        // zwrócenie publikacji do aplikacji frontend
         return new JsonResponse([
             'post' => array(
                 'id' => $post->getId(),

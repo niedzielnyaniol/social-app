@@ -19,3 +19,4 @@ web/static/js/*.js
 web/index.html
 web/tab.html
 .idea/
+server/node_modules/*

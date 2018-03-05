@@ -27,17 +27,20 @@ class UserController extends Controller
      */
     public function registerAction(Request $request)
     {
+        // wygenerowanie formularza rejestracyjnego
         $form = $this->createForm(UserRegistrationForm::class);
 
         $form->handleRequest($request);
+        // sprawdzenie, czy formularz został poprawnie wypełniony
         if ($form->isValid()) {
             /** @var User $user */
-            $user = $form->getData();
+            $user = $form->getData(); // pobranie danych z formularza
 
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $user->getAvatarUri();
+            $file = $user->getAvatarUri(); // pobranie przesłanego obrazu avatara
 
             if ($file) {
+                // upload pliku avatara
                 $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
                 $folderName = 'uploads/avatars/';
 
@@ -46,19 +49,24 @@ class UserController extends Controller
                     $fileName
                 );
             } else {
+                // ustawienie domyślnego avatara na podstawie płci
                 $gender = $user->getGender();
                 $fileName = 'default-'.$gender.'.jpg';
                 $folderName = 'images/';
             }
 
+            // przypisanie obrazu avatara do użytkownika
             $user->setAvatarUri($folderName.$fileName);
 
             $em = $this->getDoctrine()->getManager();
+            // zapisanie obiektu użytkownika przez ORM Doctrine 2 do bazy danych
             $em->persist($user);
             $em->flush();
 
+            // ustawienie wiadomości informującej o pomyślnej rejestracji
             $this->addFlash('success', 'Welcome '.$user->getEmail());
 
+            // automatyczne zalogowanie oraz przeniesienie do strony tablicy
             return $this->get('security.authentication.guard_handler')
                 ->authenticateUserAndHandleSuccess(
                     $user,
@@ -67,7 +75,7 @@ class UserController extends Controller
                     'main'
                 );
         }
-
+        // jeśli walidacja się nie powiodła, następuje wygenerowanie formularza z błędami
         return $this->render('user/register.html.twig', [
             'form' => $form->createView()
         ]);
@@ -82,10 +90,6 @@ class UserController extends Controller
         $friendsReq1 = $em->getRepository('AppBundle:FriendsRequest')->findOneBy([
             'userSend' => $this->getUser()->getId(),
             'userRecipient' => $user->getId(),
-        ]);
-        $friendsReq2 = $em->getRepository('AppBundle:FriendsRequest')->findOneBy([
-            'userRecipient' => $this->getUser()->getId(),
-            'userSend' => $user->getId(),
         ]);
 
         $areFriends = $em->getRepository('AppBundle:Friends')->areFriends(

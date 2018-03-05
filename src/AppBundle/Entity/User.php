@@ -88,6 +88,48 @@ class User implements UserInterface
     private $accountCreatedAt;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $profileDescription;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $city;
+
+    /**
+     * @return mixed
+     */
+    public function getProfileDescription()
+    {
+        return $this->profileDescription;
+    }
+
+    /**
+     * @param mixed $profileDescription
+     */
+    public function setProfileDescription($profileDescription)
+    {
+        $this->profileDescription = $profileDescription;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
      * @return mixed
      */
     public function getPosts()
